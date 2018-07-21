@@ -32,17 +32,19 @@ export default class App extends Component {
     const x2 = e.touches[0].clientX - this.state.x;
     const y2 = e.touches[0].clientY - this.state.y;
     const	dx = 200 - x2, dy = 200 - y2;
-    const deg = (Math.atan2(dy, dx) * 180 / Math.PI ) + 180;
+    let deg = (Math.atan2(dy, dx) * 180 / Math.PI ) + 180;
     switch (this.state.step) {
       case "HOURS":
-        if (Math.round(deg % 30) === 0) {
+        deg = Math.round(deg/30) * 30;
+        if (deg % 30 === 0) {
           this.setState({
-            deg,
+            deg
           });
         }
       break;
       case "MINUTES":
-        if (Math.round(deg % 6) === 0) {
+      deg = Math.round(deg/6) * 6;
+        if (deg % 6 === 0) {
           this.setState({
             deg,
           });
