@@ -6,21 +6,24 @@ export default class App extends Component {
     super();
     this.state = {
       deg: this.getDegFromHours_(new Date().getHours()),
-      x: 0,
-      y: 0,
       step: 'HOURS',
       currentTime: new Date(),
     };
+    this.x_ = 0;
+    this.y_ = 0;
+    this.centerX_ = 0;
+    this.centerY_ = 0;
     this.angles_ = [];
     for (let angle = 0; angle < 360; angle += 30) {
       this.angles_.push(angle);
     }
   }
   componentDidMount() {
-    const {x,y} = this.svg.getBoundingClientRect();
-    this.setState({
-      x,y
-    });
+    const {x, y} = this.svg.getBoundingClientRect();
+    this.x_ = x;
+    this.y_ = y;
+    this.centerX_ = (this.props.size||400) / 2;
+    this.centerY_ = (this.props.size||400) / 2;
   }
   toRadians_(angle) {
     return angle * (Math.PI / 180);
@@ -29,9 +32,9 @@ export default class App extends Component {
     return radians * 180 / Math.PI;
   };
   handleDrag_ = (e) => {
-    const x2 = e.touches[0].clientX - this.state.x;
-    const y2 = e.touches[0].clientY - this.state.y;
-    const	dx = 200 - x2, dy = 200 - y2;
+    const x2 = e.touches[0].clientX - this.x_;
+    const y2 = e.touches[0].clientY - this.y_;
+    const	dx = this.centerX_ - x2, dy = this.centerY_ - y2;
     let deg = (Math.atan2(dy, dx) * 180 / Math.PI ) + 180;
     switch (this.state.step) {
       case "HOURS":
@@ -90,7 +93,7 @@ export default class App extends Component {
   }
   render(props) {
     return (
-      <svg class="dial minues" width="400" height="400" viewBox="0 0 400 400"
+      <svg class="dial minues" width={this.props.size || '400'} height={this.props.size || '400'} viewBox="0 0 400 400"
         onTouchMove={this.handleDrag_}
         onTouchEnd={this.handleEnd_}
         ref={svg => this.svg = svg}>
