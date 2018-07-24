@@ -5,6 +5,7 @@ import Typography from 'preact-material-components/Typography';
 import 'preact-material-components/Typography/style.css';
 import 'preact-material-components/Dialog/style.css';
 import 'preact-material-components/Button/style.css';
+import 'preact-material-components/Theme/style.css';
 import Timepicker from '../../../../src/components/my-component';
 import style from './style';
 import npmInfo from '../../../../package.json';
@@ -65,7 +66,7 @@ export default class Home extends Component {
 										this.picker_.showMinutes();
 									}}>{this.state.minutes}</Typography>
 
-									<Typography headline4 onClick={() => {
+									<Typography headline4 class={style.ampm} onClick={() => {
 										this.setState({
 											AM: !this.state.AM
 										});
