@@ -18,20 +18,13 @@ export default class App extends Component {
       this.angles_.push(angle);
     }
   }
-  reCalibrate_ = () => {
-    const {x, y} = this.svg.getBoundingClientRect();
-    this.x_ = x;
-    this.y_ = y;
-    this.centerX_ = (this.props.size||400) / 2;
-    this.centerY_ = (this.props.size||400) / 2;
-  }
   toRadians_(angle) {
     return angle * (Math.PI / 180);
   }
   toDegree_(radians) {
     return radians * 180 / Math.PI;
   };
-  handleDrag_ = (e) => {
+  handleDrag_(e) {
     const x2 = (e.clientX || e.touches[0].clientX) - this.x_;
     const y2 = (e.clientY || e.touches[0].clientY) - this.y_;
     const dx = this.centerX_ - x2, dy = this.centerY_ - y2;
@@ -55,7 +48,14 @@ export default class App extends Component {
       break;
     }
   }
-  handleEnd_ = (e) => {
+  reCalibrate_() {
+    const {x, y} = this.svg.getBoundingClientRect();
+    this.x_ = x;
+    this.y_ = y;
+    this.centerX_ = (this.props.size||400) / 2;
+    this.centerY_ = (this.props.size||400) / 2;
+  }
+  handleEnd_(e) {
     switch (this.state.step) {
       case "HOURS":
         const hours = (Math.round(this.state.deg) / 30) + 3;
@@ -81,19 +81,19 @@ export default class App extends Component {
   getDegFromMinutes_(minutes) {
     return (minutes - 15) * 6;
   }
-  mouseUp_ = () => {
+  mouseUp_() {
     this.setState({
       mouseDown:false,
     });
     this.handleEnd_();
   }
-  mouseDown_ = () => {
+  mouseDown_() {
     this.reCalibrate_();
     this.setState({
       mouseDown:true,
     })
   }
-  mouseMove_ = e => {
+  mouseMove_(e) {
     if (this.state.mouseDown) {
       this.handleDrag_(e);
     }
@@ -113,12 +113,12 @@ export default class App extends Component {
   render(props) {
     return (
       <svg class="dial minues" width={this.props.size || '400'} height={this.props.size || '400'} viewBox="0 0 400 400"
-        onTouchStart={this.reCalibrate_}
-        onTouchMove={this.handleDrag_}
-        onTouchEnd={this.handleEnd_}
-        onMouseDown={this.mouseDown_}
-        onMouseMove={this.mouseMove_}
-        onMouseUp={this.mouseUp_}
+        onTouchStart={this.reCalibrate_.bind(this)}
+        onTouchMove={this.handleDrag_.bind(this)}
+        onTouchEnd={this.handleEnd_.bind(this)}
+        onMouseDown={this.mouseDown_.bind(this)}
+        onMouseMove={this.mouseMove_.bind(this)}
+        onMouseUp={this.mouseUp_.bind(this)}
         ref={svg => this.svg = svg}>
         <style>
         {`
