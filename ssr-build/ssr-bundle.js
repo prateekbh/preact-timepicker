@@ -1721,7 +1721,7 @@ function app__inherits(subClass, superClass) { if (typeof superClass !== "functi
 // import Home from 'async!../routes/home';
 // import Profile from 'async!../routes/profile';
 
-var app__ref = Object(preact_min["h"])(home_Home, { path: '/' });
+var app__ref = Object(preact_min["h"])(home_Home, { path: '/react-timepicker/' });
 
 var app__ref2 = Object(preact_min["h"])(_04_NotFound, { 'default': true });
 
