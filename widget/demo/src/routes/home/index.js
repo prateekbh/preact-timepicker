@@ -14,8 +14,9 @@ export default class Home extends Component {
 		super();
 		const date = new Date();
 		this.state = {
-			hours: date.getHours(),
-			minutes: date.getMinutes()
+			hours: date.getHours() % 12,
+			minutes: date.getMinutes(),
+			AM: true
 		};
 	}
 	render() {
@@ -63,6 +64,12 @@ export default class Home extends Component {
 									<Typography headline4 onClick={() => {
 										this.picker_.showMinutes();
 									}}>{this.state.minutes}</Typography>
+
+									<Typography headline4 onClick={() => {
+										this.setState({
+											AM: !this.state.AM
+										});
+									}}> {this.state.AM ? 'AM': 'PM'}</Typography>
 								</div>
 								<Timepicker size={250} ref={picker => this.picker_ = picker}
 									onHoursSelect={hours => {

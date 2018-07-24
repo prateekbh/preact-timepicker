@@ -1,5 +1,5 @@
 export default function (config, env, helpers) {
-  if ( env.production ) {
-    config.output.publicPath = '/react-timepicker/';
-  }
+	if ( env.production ) {
+		config.output.publicPath = '/react-timepicker/';
+	}
 }

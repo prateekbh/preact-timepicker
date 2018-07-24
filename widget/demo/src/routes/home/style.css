@@ -39,7 +39,7 @@ h1 {
   content: '';
   height: 60px;
   width: 60px;
-  background-image: url(/assets/gh.png);
+  background-image: url(/react-timepicker/assets/gh.png);
   display: inline-block;
   top: 110px;
   right: 110px;
