@@ -1,17 +1,29 @@
 import { h, Component } from 'preact';
-import Card from 'preact-material-components/Card';
-import 'preact-material-components/Card/style.css';
+import Button from 'preact-material-components/Button';
+import Dialog from 'preact-material-components/Dialog';
+import Typography from 'preact-material-components/Typography';
+import 'preact-material-components/Typography/style.css';
+import 'preact-material-components/Dialog/style.css';
 import 'preact-material-components/Button/style.css';
+import Timepicker from '../../../../src/components/my-component';
 import style from './style';
 import npmInfo from '../../../../package.json';
 
 export default class Home extends Component {
+	constructor(){
+		super();
+		const date = new Date();
+		this.state = {
+			hours: date.getHours(),
+			minutes: date.getMinutes()
+		};
+	}
 	render() {
 		return (
 			<div class={style.home}>
 				<div class={style.header}>
 					<h1>{npmInfo.name} @ {npmInfo.version}</h1>
-					<a class={style.ghicon} href={npmInfo.homepage} />
+					<a class={style.ghicon} target="blank" href={npmInfo.homepage} />
 				</div>
 				<div class={style.body}>
 					<h2 class=" mdc-typography--title">Introduction</h2>
@@ -35,6 +47,37 @@ export default class Home extends Component {
 								<div class=" mdc-typography--body">Event callback when the user selects minutes.</div>
 							</li>
 						</ul>
+						<Button primary raised onClick={()=>{
+							this.scrollingDlg.MDComponent.show();
+						}}>
+							Show Demo
+						</Button>
+						<Dialog style={style.dialog} ref={scrollingDlg => {this.scrollingDlg=scrollingDlg;}}>
+							<Dialog.Header>Choose alarm time</Dialog.Header>
+							<Dialog.Body>
+								<div >
+									<Typography headline4 onClick={() => {
+										this.picker_.showHours();
+									}}>{this.state.hours}</Typography>
+									:
+									<Typography headline4 onClick={() => {
+										this.picker_.showMinutes();
+									}}>{this.state.minutes}</Typography>
+								</div>
+								<Timepicker size={250} ref={picker => this.picker_ = picker}
+									onHoursSelect={hours => {
+										this.setState({hours})
+									}}
+									onMinutesSelect={minutes => {
+										this.setState({minutes})
+									}}
+								/>
+							</Dialog.Body>
+							<Dialog.Footer>
+								<Dialog.FooterButton cancel>Decline</Dialog.FooterButton>
+								<Dialog.FooterButton accept>Accept</Dialog.FooterButton>
+							</Dialog.Footer>
+						</Dialog>
 					</div>
 				</div>
 			</div>

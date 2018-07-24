@@ -18,7 +18,7 @@ export default class App extends Component {
       this.angles_.push(angle);
     }
   }
-  componentDidMount() {
+  reCalibrate_ = () => {
     const {x, y} = this.svg.getBoundingClientRect();
     this.x_ = x;
     this.y_ = y;
@@ -32,9 +32,9 @@ export default class App extends Component {
     return radians * 180 / Math.PI;
   };
   handleDrag_ = (e) => {
-    const x2 = e.touches[0].clientX - this.x_;
-    const y2 = e.touches[0].clientY - this.y_;
-    const	dx = this.centerX_ - x2, dy = this.centerY_ - y2;
+    const x2 = (e.clientX || e.touches[0].clientX) - this.x_;
+    const y2 = (e.clientY || e.touches[0].clientY) - this.y_;
+    const dx = this.centerX_ - x2, dy = this.centerY_ - y2;
     let deg = (Math.atan2(dy, dx) * 180 / Math.PI ) + 180;
     switch (this.state.step) {
       case "HOURS":
@@ -60,7 +60,7 @@ export default class App extends Component {
       case "HOURS":
         const hours = (Math.round(this.state.deg) / 30) + 3;
         if (this.props.onHoursSelect) {
-          this.props.onHoursSelect(hours);
+          this.props.onHoursSelect(hours % 12);
         }
         this.setState({
           step: "MINUTES",
@@ -70,7 +70,7 @@ export default class App extends Component {
       case "MINUTES":
         const minutes = (Math.round(this.state.deg) / 30) + 3;
         if (this.props.onMinutesSelect) {
-          this.props.onMinutesSelect(minutes);
+          this.props.onMinutesSelect((minutes * 5) % 60);
         }
       break;
     }
@@ -81,6 +81,24 @@ export default class App extends Component {
   getDegFromMinutes_(minutes) {
     return (minutes - 15) * 6;
   }
+  mouseUp_ = () => {
+    this.setState({
+      mouseDown:false,
+    });
+    this.handleEnd_();
+  }
+  mouseDown_ = () => {
+    this.reCalibrate_();
+    this.setState({
+      mouseDown:true,
+    })
+  }
+  mouseMove_ = e => {
+    if (this.state.mouseDown) {
+      this.handleDrag_(e);
+    }
+  }
+
   showHours() {
     this.setState({
       step: 'HOURS'
@@ -91,17 +109,23 @@ export default class App extends Component {
       step: 'MINUTES'
     });
   }
+
   render(props) {
     return (
       <svg class="dial minues" width={this.props.size || '400'} height={this.props.size || '400'} viewBox="0 0 400 400"
+        onTouchStart={this.reCalibrate_}
         onTouchMove={this.handleDrag_}
         onTouchEnd={this.handleEnd_}
+        onMouseDown={this.mouseDown_}
+        onMouseMove={this.mouseMove_}
+        onMouseUp={this.mouseUp_}
         ref={svg => this.svg = svg}>
         <style>
         {`
           :root{
             fill: transparent;
-            stroke: #000
+            stroke: #000;
+            user-select: none;
           }
           text {
             fill: #000;
@@ -114,9 +138,6 @@ export default class App extends Component {
             transform-origin: center center;
             transition-property: transform;
             transition-duration: 400ms;
-          }
-          .display {
-            user-input: none;
           }
           .minutes, .hours {
             transition-property: opacity, transform;

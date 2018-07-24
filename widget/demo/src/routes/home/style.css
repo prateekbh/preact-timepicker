@@ -54,3 +54,8 @@ h1 {
   margin-top: 8px;
   font-weight: 500;
 }
+
+.dialog {
+  max-width: 300px;
+  min-width: 0;
+}
