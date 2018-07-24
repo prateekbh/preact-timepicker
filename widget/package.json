@@ -14,6 +14,11 @@
     "dev": "preact watch --template src/index.ejs",
     "dist": "microbundle --entry src/components/my-component/index.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/prateekbh/react-timepicker.git"
+  },
+  "homepage": "https://github.com/prateekbh/react-timepicker",
   "keywords": [],
   "author": "Prateek Bhatnagar <prateek89born@gmail.com>",
   "license": "MIT",

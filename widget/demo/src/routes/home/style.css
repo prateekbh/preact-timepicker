@@ -1,0 +1,56 @@
+.home {
+	min-height: 100%;
+	width: 100%;
+}
+
+h1 {
+  margin: 0;
+  padding: 0;
+  color: #fff;
+}
+
+.header{
+  background-color: #311b92;
+  height: 25vh;
+  display: flex;
+  align-items: flex-end;
+  padding: 20px;
+  margin-bottom: 8px;
+  position: relative;
+}
+
+.ghicon{
+  position: absolute;
+  right: -100px;
+  top: -100px;
+}
+
+.ghicon:before{
+  background-color: #fff;
+  content: '';
+  height: 200px;
+  width: 200px;
+  display: inline-block;
+  transform: rotate(45deg);
+}
+
+.ghicon:after{
+  position: absolute;
+  content: '';
+  height: 60px;
+  width: 60px;
+  background-image: url(/assets/gh.png);
+  display: inline-block;
+  top: 110px;
+  right: 110px;
+  background-size: 60px 60px;
+}
+
+.body {
+  padding: 16px;
+}
+
+.propheading {
+  margin-top: 8px;
+  font-weight: 500;
+}
