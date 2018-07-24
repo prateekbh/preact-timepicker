@@ -19,7 +19,7 @@ export default class App extends Component {
 		return (
 			<div id="app">
 				<Router onChange={this.handleRoute}>
-					<Home path="/react-timepicker/" />
+					<Home path="/preact-timepicker/" />
           <NotFound default />
 				</Router>
 			</div>
