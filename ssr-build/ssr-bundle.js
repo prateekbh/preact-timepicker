@@ -58,7 +58,7 @@ module.exports =
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
 /******/
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "/react-timepicker/";
+/******/ 	__webpack_require__.p = "/preact-timepicker/";
 /******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(__webpack_require__.s = "JkW7");
@@ -1514,8 +1514,9 @@ var home_Home = function (_Component) {
 
 		var date = new Date();
 		_this.state = {
-			hours: date.getHours(),
-			minutes: date.getMinutes()
+			hours: date.getHours() % 12,
+			minutes: date.getMinutes(),
+			AM: true
 		};
 		return _this;
 	}
@@ -1614,6 +1615,16 @@ var home_Home = function (_Component) {
 											_this2.picker_.showMinutes();
 										} },
 									this.state.minutes
+								),
+								Object(preact_min["h"])(
+									Typography_default.a,
+									{ headline4: true, onClick: function onClick() {
+											_this2.setState({
+												AM: !_this2.state.AM
+											});
+										} },
+									' ',
+									this.state.AM ? 'AM' : 'PM'
 								)
 							),
 							Object(preact_min["h"])(my_component_App, { size: 250, ref: function ref(picker) {
@@ -1721,7 +1732,7 @@ function app__inherits(subClass, superClass) { if (typeof superClass !== "functi
 // import Home from 'async!../routes/home';
 // import Profile from 'async!../routes/profile';
 
-var app__ref = Object(preact_min["h"])(home_Home, { path: '/react-timepicker/' });
+var app__ref = Object(preact_min["h"])(home_Home, { path: '/preact-timepicker/' });
 
 var app__ref2 = Object(preact_min["h"])(_04_NotFound, { 'default': true });
 
