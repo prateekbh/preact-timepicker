@@ -1195,6 +1195,10 @@ var Dialog_style_default = /*#__PURE__*/__webpack_require__.n(Dialog_style);
 var Button_style = __webpack_require__("aqQ4");
 var Button_style_default = /*#__PURE__*/__webpack_require__.n(Button_style);
 
+// EXTERNAL MODULE: ../node_modules/preact-material-components/Theme/style.css
+var Theme_style = __webpack_require__("a81U");
+var Theme_style_default = /*#__PURE__*/__webpack_require__.n(Theme_style);
+
 // EXTERNAL MODULE: /Users/prateekbh/projects/react-timepicker/widget/src/components/my-component/style.scss
 var my_component_style = __webpack_require__("WBcX");
 var my_component_style_default = /*#__PURE__*/__webpack_require__.n(my_component_style);
@@ -1438,6 +1442,7 @@ function home__inherits(subClass, superClass) { if (typeof superClass !== "funct
 
 
 
+
 var home__ref = Object(preact_min["h"])(
 	'h2',
 	{ 'class': ' mdc-typography--title' },
@@ -1618,7 +1623,7 @@ var home_Home = function (_Component) {
 								),
 								Object(preact_min["h"])(
 									Typography_default.a,
-									{ headline4: true, onClick: function onClick() {
+									{ headline4: true, 'class': home_style_default.a.ampm, onClick: function onClick() {
 											_this2.setState({
 												AM: !_this2.state.AM
 											});
@@ -2461,7 +2466,14 @@ exports.default = Typography;
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-module.exports = {"home":"home__MseGd","header":"header__2Kckw","ghicon":"ghicon__7fDSr","body":"body__2CykA","propheading":"propheading__qUN37","center":"center__2ZBhc"};
+module.exports = {"home":"home__MseGd","header":"header__2Kckw","ghicon":"ghicon__7fDSr","body":"body__2CykA","propheading":"propheading__qUN37","center":"center__2ZBhc","ampm":"ampm__3R8no"};
+
+/***/ }),
+
+/***/ "a81U":
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 
