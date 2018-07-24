@@ -12,7 +12,9 @@
     "build": "preact build --no-prerender --clean --template src/index.ejs --service-worker false",
     "serve": "npm run build && preact serve",
     "dev": "preact watch --template src/index.ejs",
-    "dist": "microbundle --entry src/components/my-component/index.js"
+    "dist": "microbundle --entry src/components/my-component/index.js",
+    "build:docs": "cd demo && npm run build",
+    "deploy:pages": "npm run build:docs && node ./deploy-pages"
   },
   "repository": {
     "type": "git",

@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "gh-pages": "^1.2.0",
     "preact-cli": "^2.2.1"
   }
 }
