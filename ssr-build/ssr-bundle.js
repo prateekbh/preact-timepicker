@@ -1227,84 +1227,6 @@ var my_component_App = function (_Component) {
 
     var _this = _possibleConstructorReturn(this, _Component.call(this));
 
-    _this.reCalibrate_ = function () {
-      var _this$svg$getBounding = _this.svg.getBoundingClientRect(),
-          x = _this$svg$getBounding.x,
-          y = _this$svg$getBounding.y;
-
-      _this.x_ = x;
-      _this.y_ = y;
-      _this.centerX_ = (_this.props.size || 400) / 2;
-      _this.centerY_ = (_this.props.size || 400) / 2;
-    };
-
-    _this.handleDrag_ = function (e) {
-      var x2 = (e.clientX || e.touches[0].clientX) - _this.x_;
-      var y2 = (e.clientY || e.touches[0].clientY) - _this.y_;
-      var dx = _this.centerX_ - x2,
-          dy = _this.centerY_ - y2;
-      var deg = Math.atan2(dy, dx) * 180 / Math.PI + 180;
-      switch (_this.state.step) {
-        case "HOURS":
-          deg = Math.round(deg / 30) * 30;
-          if (deg % 30 === 0) {
-            _this.setState({
-              deg: deg
-            });
-          }
-          break;
-        case "MINUTES":
-          deg = Math.round(deg / 6) * 6;
-          if (deg % 6 === 0) {
-            _this.setState({
-              deg: deg
-            });
-          }
-          break;
-      }
-    };
-
-    _this.handleEnd_ = function (e) {
-      switch (_this.state.step) {
-        case "HOURS":
-          var hours = Math.round(_this.state.deg) / 30 + 3;
-          if (_this.props.onHoursSelect) {
-            _this.props.onHoursSelect(hours % 12);
-          }
-          _this.setState({
-            step: "MINUTES",
-            deg: _this.getDegFromMinutes_(_this.state.currentTime.getMinutes())
-          });
-          break;
-        case "MINUTES":
-          var minutes = Math.round(_this.state.deg) / 30 + 3;
-          if (_this.props.onMinutesSelect) {
-            _this.props.onMinutesSelect(minutes * 5 % 60);
-          }
-          break;
-      }
-    };
-
-    _this.mouseUp_ = function () {
-      _this.setState({
-        mouseDown: false
-      });
-      _this.handleEnd_();
-    };
-
-    _this.mouseDown_ = function () {
-      _this.reCalibrate_();
-      _this.setState({
-        mouseDown: true
-      });
-    };
-
-    _this.mouseMove_ = function (e) {
-      if (_this.state.mouseDown) {
-        _this.handleDrag_(e);
-      }
-    };
-
     _this.state = {
       deg: _this.getDegFromHours_(new Date().getHours()),
       step: 'HOURS',
@@ -1329,12 +1251,90 @@ var my_component_App = function (_Component) {
     return radians * 180 / Math.PI;
   };
 
+  App.prototype.handleDrag_ = function handleDrag_(e) {
+    var x2 = (e.clientX || e.touches[0].clientX) - this.x_;
+    var y2 = (e.clientY || e.touches[0].clientY) - this.y_;
+    var dx = this.centerX_ - x2,
+        dy = this.centerY_ - y2;
+    var deg = Math.atan2(dy, dx) * 180 / Math.PI + 180;
+    switch (this.state.step) {
+      case "HOURS":
+        deg = Math.round(deg / 30) * 30;
+        if (deg % 30 === 0) {
+          this.setState({
+            deg: deg
+          });
+        }
+        break;
+      case "MINUTES":
+        deg = Math.round(deg / 6) * 6;
+        if (deg % 6 === 0) {
+          this.setState({
+            deg: deg
+          });
+        }
+        break;
+    }
+  };
+
+  App.prototype.reCalibrate_ = function reCalibrate_() {
+    var _svg$getBoundingClien = this.svg.getBoundingClientRect(),
+        x = _svg$getBoundingClien.x,
+        y = _svg$getBoundingClien.y;
+
+    this.x_ = x;
+    this.y_ = y;
+    this.centerX_ = (this.props.size || 400) / 2;
+    this.centerY_ = (this.props.size || 400) / 2;
+  };
+
+  App.prototype.handleEnd_ = function handleEnd_(e) {
+    switch (this.state.step) {
+      case "HOURS":
+        var hours = Math.round(this.state.deg) / 30 + 3;
+        if (this.props.onHoursSelect) {
+          this.props.onHoursSelect(hours % 12);
+        }
+        this.setState({
+          step: "MINUTES",
+          deg: this.getDegFromMinutes_(this.state.currentTime.getMinutes())
+        });
+        break;
+      case "MINUTES":
+        var minutes = Math.round(this.state.deg) / 30 + 3;
+        if (this.props.onMinutesSelect) {
+          this.props.onMinutesSelect(minutes * 5 % 60);
+        }
+        break;
+    }
+  };
+
   App.prototype.getDegFromHours_ = function getDegFromHours_(hours) {
     return (hours - 3) * 30;
   };
 
   App.prototype.getDegFromMinutes_ = function getDegFromMinutes_(minutes) {
     return (minutes - 15) * 6;
+  };
+
+  App.prototype.mouseUp_ = function mouseUp_() {
+    this.setState({
+      mouseDown: false
+    });
+    this.handleEnd_();
+  };
+
+  App.prototype.mouseDown_ = function mouseDown_() {
+    this.reCalibrate_();
+    this.setState({
+      mouseDown: true
+    });
+  };
+
+  App.prototype.mouseMove_ = function mouseMove_(e) {
+    if (this.state.mouseDown) {
+      this.handleDrag_(e);
+    }
   };
 
   App.prototype.showHours = function showHours() {
@@ -1355,12 +1355,12 @@ var my_component_App = function (_Component) {
     return Object(preact_min["h"])(
       "svg",
       { "class": "dial minues", width: this.props.size || '400', height: this.props.size || '400', viewBox: "0 0 400 400",
-        onTouchStart: this.reCalibrate_,
-        onTouchMove: this.handleDrag_,
-        onTouchEnd: this.handleEnd_,
-        onMouseDown: this.mouseDown_,
-        onMouseMove: this.mouseMove_,
-        onMouseUp: this.mouseUp_,
+        onTouchStart: this.reCalibrate_.bind(this),
+        onTouchMove: this.handleDrag_.bind(this),
+        onTouchEnd: this.handleEnd_.bind(this),
+        onMouseDown: this.mouseDown_.bind(this),
+        onMouseMove: this.mouseMove_.bind(this),
+        onMouseUp: this.mouseUp_.bind(this),
         ref: function ref(svg) {
           return _this2.svg = svg;
         } },
