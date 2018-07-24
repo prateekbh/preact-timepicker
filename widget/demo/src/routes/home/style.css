@@ -55,7 +55,6 @@ h1 {
   font-weight: 500;
 }
 
-.dialog {
-  max-width: 300px;
-  min-width: 0;
+.center{
+  text-align: center;
 }

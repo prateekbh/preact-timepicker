@@ -35,15 +35,15 @@ export default class Home extends Component {
 					<div>
 						<ul>
 							<li>
-								<div class={`${style.propheading} mdc-typography--caption`}>Size</div>
+								<div class={`${style.propheading} mdc-typography--subtitle1`}>Size</div>
 								<div class=" mdc-typography--body">Tells the size of the clock rendered.</div>
 							</li>
 							<li>
-								<div class={`${style.propheading} mdc-typography--caption`}>onHoursSelect</div>
+								<div class={`${style.propheading} mdc-typography--subtitle1`}>onHoursSelect</div>
 								<div class=" mdc-typography--body">Event callback when the user selects hours.</div>
 							</li>
 							<li>
-								<div class={`${style.propheading} mdc-typography--caption`}>SionMinutesSelectze</div>
+								<div class={`${style.propheading} mdc-typography--subtitle1`}>onMinutesSelect</div>
 								<div class=" mdc-typography--body">Event callback when the user selects minutes.</div>
 							</li>
 						</ul>
@@ -52,10 +52,10 @@ export default class Home extends Component {
 						}}>
 							Show Demo
 						</Button>
-						<Dialog style={style.dialog} ref={scrollingDlg => {this.scrollingDlg=scrollingDlg;}}>
+						<Dialog class={style.dialog} ref={scrollingDlg => {this.scrollingDlg=scrollingDlg;}}>
 							<Dialog.Header>Choose alarm time</Dialog.Header>
 							<Dialog.Body>
-								<div >
+								<div class={style.center}>
 									<Typography headline4 onClick={() => {
 										this.picker_.showHours();
 									}}>{this.state.hours}</Typography>

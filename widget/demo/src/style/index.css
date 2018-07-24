@@ -51,3 +51,8 @@ html, body {
 .mdc-theme--dark .mdc-card {
   color: #444;
 }
+
+.mdc-dialog .mdc-dialog__surface{
+  max-width: 300px;
+  min-width: 0;
+}
